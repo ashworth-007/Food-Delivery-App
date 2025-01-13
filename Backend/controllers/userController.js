@@ -3,12 +3,17 @@ import jwt from "jsonwebtoken"
 import bcrypt from "bcrypt"
 import validator from "validator"
 import { response } from "express";
+import dotenv from "dotenv";
+dotenv.config();
 
 
 //login user
 const loginUser = async (req,res)=>{
     const {email,password}=req.body;
     try {
+       
+        console.log("JWT_SECRET:", process.env.JWT_SECRET); // Debugging
+        
         const user =await userModel.findOne({email});
         if (!user) {
             return res.json({success:false,message:"User Doesn't exists"})
@@ -31,7 +36,8 @@ const createToken=(id)=>{
     if (!process.env.JWT_SECRET) {
         throw new Error("JWT_SECRET is not defined");
     }
-    return jwt.sign({id},process.env.JWT_SECRET)
+    const secret = process.env.JWT_SECRET || "fallback_secret_key";
+    return jwt.sign({id},secret);
 }
 
 //register user
