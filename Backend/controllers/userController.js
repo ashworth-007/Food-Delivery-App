@@ -28,6 +28,9 @@ const loginUser = async (req,res)=>{
     }
 }
 const createToken=(id)=>{
+    if (!process.env.JWT_SECRET) {
+        throw new Error("JWT_SECRET is not defined");
+    }
     return jwt.sign({id},process.env.JWT_SECRET)
 }
 
