@@ -6,7 +6,8 @@
     animation: fadeIn 1s;  
 }
 .food-item-image{  
-    width: 100%;  
+    width: 300px;
+    height: 300px;  
     border-radius: 15px 15px 0px Өpx;  
 }  
 .food-item-info{  
